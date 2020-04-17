@@ -1,0 +1,208 @@
+Musat Mihai-Robert
+332CB
+
+Lab 6 - ASC
+-----------
+
+1) Masurare cu time -> primes.c
+--------------------------------
+
+I.Serial version		
+================
+
+40000 primes			
+------------
+real	0m0.133s		
+user	0m0.133s
+sys	0m0.000s
+
+100000 primes
+-------------
+real	0m0.717s
+user	0m0.716s
+sys	0m0.001s
+
+200000 primes
+-------------
+real	0m2.653s
+user	0m2.652s
+sys	0m0.000s
+
+300000 primes
+-------------
+real	0m5.725s
+user	0m5.720s
+sys	0m0.004s
+
+400000 primes
+-------------
+real	0m9.957s
+user	0m9.952s
+sys	0m0.004s
+
+
+II.OpenMP version
+=================
+
+40000 primes			
+------------
+real	0m0.060s
+user	0m0.180s
+sys	0m0.005s
+
+100000 primes
+-------------
+real	0m0.284s
+user	0m0.722s
+sys	0m0.000s
+
+200000 primes
+-------------
+real	0m1.022s
+user	0m2.493s
+sys	0m0.000s
+
+300000 primes
+-------------
+real	0m2.198s
+user	0m5.329s
+sys	0m0.000s
+
+400000 primes
+-------------
+real	0m3.891s
+user	0m9.298s
+sys	0m0.000s
+
+
+
+2) Solaris -> primes.c
+----------------------
+
+I.Serial version		
+================
+
+gcc -g -o prime-ex primes.c
+collect ./prime-ex 
+analyzer test.1.er
+
+40000 primes			
+------------
+Experiment duration: 14,833s
+Total CPU Time: 14,780s
+
+100000 primes
+-------------
+Experiment duration: 15,185s
+Total CPU Time: 15,131s
+
+200000 primes
+-------------
+Experiment duration: 15,058s
+Total CPU Time: 15,000s
+
+300000 primes
+-------------
+Experiment duration: 13,274s
+Total CPU Time: 13,239s
+
+400000 primes
+-------------
+Experiment duration: 13,336s
+Total CPU Time: 13,299s
+
+II.OpenMP version
+=================
+
+gcc -g -fopenmp -o prime-omp primes.c
+collect ./prime-omp
+analyzer test.2.er 
+
+40000 primes			
+------------
+Experiment duration: 1,117s
+Total CPU Time: 22,456s
+
+100000 primes
+-------------
+Experiment duration: 1,084s
+Total CPU Time: 21,165s
+
+200000 primes
+-------------
+Experiment duration: 1,107s
+Total CPU Time: 21,125s
+
+300000 primes
+-------------
+Experiment duration: 1,118s
+Total CPU Time: 21,815s
+
+400000 primes
+-------------
+Experiment duration: 1,137s
+Total CPU Time: 21,845s
+
+
+
+3) Tachyon - rulare simpla
+---------------------------
+
+1) tachyon_find_hotspots
+------------------------
+
+CPU Time: 9.676 seconds.
+
+2) tachyon_analyze_locks
+------------------------
+
+CPU Time: 4.684 seconds.
+
+
+
+4) Tachyon - Solaris
+--------------------
+
+1) tachyon_find_hotspots
+-------------------------
+collect ./tachyon_find_hotspots
+
+CPU Time: 24.199 seconds.
+
+analyzer test.3.er/
+Experiment duration: 34,818s
+Total CPU Time: 17,432s
+
+2) tachyon_analyze_locks
+------------------------
+collect ./tachyon_analyze_locks
+
+CPU Time: 8.028 seconds.
+
+analyzer test.4.er/
+Experiment duration: 18,597s
+Total CPU Time: 8,036s
+
+
+
+5) Tachyon - Valgrind
+---------------------
+
+valgrind --tool=callgrind --collect-jumps=yes --dump-instr=yes --collect-systime=yes -- ./tachyon_find_hotspots dat/balls.dat
+==44959== Callgrind, a call-graph generating cache profiler
+==44959== Copyright (C) 2002-2015, and GNU GPL'd, by Josef Weidendorfer et al.
+==44959== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==44959== Command: ./tachyon_find_hotspots dat/balls.dat
+==44959== 
+==44959== For interactive control, run 'callgrind_control -h'.
+./tachyon_find_hotspots: /lib64/libstdc++.so.6: version `CXXABI_1.3.8' not found (required by ./tachyon_find_hotspots)
+==44959== 
+==44959== Events    : Ir sysCount sysTime
+==44959== Collected : 166172 157 72
+==44959== 
+==44959== I   refs:      166,172
+
+kcachegrind -> am bifat butoanele Relative, Cycle detection si Relative to parent
+
+
+
